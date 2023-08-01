@@ -18,6 +18,7 @@ BALL_RADIUS = 7
 SCORE_FONT = pygame.font.SysFont("arial", 50)
 WINNING_SCORE = 10
 
+# paddle class, which is used for both players
 class Paddle:
     COLOR = WHITE
     VEL = 4
@@ -42,6 +43,7 @@ class Paddle:
         self.x = self.original_x
         self.y = self.orginial_y
 
+# ball class, which is the ball in the game
 class Ball:
     MAX_VEL = 5
     COLOR = WHITE
@@ -67,7 +69,7 @@ class Ball:
         self.y_vel = 0
         self.x_vel *= -1
 
-
+# draws the game visual every frame
 def draw(win,paddles,ball, left_score, right_score):
     win.fill(BLACK)
 
@@ -87,6 +89,9 @@ def draw(win,paddles,ball, left_score, right_score):
     ball.draw(win)
     pygame.display.update()
     
+# handles the math for how the ball should react
+# note this is pretty complicated. I followed what was provided
+# by Tech With Tim
 def handle_collision(ball, left_paddle, right_paddle):
     if ball.y + ball.radius >= HEIGHT:
         ball.y_vel *= -1
@@ -125,7 +130,7 @@ def handle_paddle_movement(keys, left_paddle, right_paddle):
     if keys[pygame.K_DOWN] and right_paddle.y + right_paddle.VEL + right_paddle.height <= HEIGHT:
         right_paddle.move(up=False)
 
-
+# runs the program
 def main():
     run = True
     clock = pygame.time.Clock()
